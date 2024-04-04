@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sweet_bonanza_app/router/router.dart';
+import 'package:sweet_bonanza_app/screens/find_pairs/find_pairs_levels/find_pairs_levels_screen.dart';
 import 'package:sweet_bonanza_app/widgets/custom_button.dart';
 
 @RoutePage()
@@ -27,7 +28,6 @@ class _GameSelectionScreenState extends State<GameSelectionScreen> {
         width: MediaQuery.of(context).size.width,
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -43,6 +43,7 @@ class _GameSelectionScreenState extends State<GameSelectionScreen> {
                   ],
                 ),
               ),
+              Spacer(flex: 1),
               Column(
                 children: [
                   Image.asset('assets/images/elements/logo.png'),
@@ -57,14 +58,15 @@ class _GameSelectionScreenState extends State<GameSelectionScreen> {
                       SizedBox(height: 20),
                       CustomButton(
                         imageButton: 'assets/images/elements/find-pairs.png',
-                        onTap: () {},
+                        onTap: () {
+                          context.router.push(FindPairsLevelsRoute());
+                        },
                       ),
-                      SizedBox(height: 20),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 100),
+              Spacer(flex: 3),
             ],
           ),
         ),

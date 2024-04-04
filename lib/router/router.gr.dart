@@ -15,6 +15,22 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    FindPairsGameRoute.name: (routeData) {
+      final args = routeData.argsAs<FindPairsGameRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FindPairsGameScreen(
+          key: args.key,
+          level: args.level,
+        ),
+      );
+    },
+    FindPairsLevelsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const FindPairsLevelsScreen(),
+      );
+    },
     GameSelectionRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -50,6 +66,58 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [FindPairsGameScreen]
+class FindPairsGameRoute extends PageRouteInfo<FindPairsGameRouteArgs> {
+  FindPairsGameRoute({
+    Key? key,
+    required LevelModel level,
+    List<PageRouteInfo>? children,
+  }) : super(
+          FindPairsGameRoute.name,
+          args: FindPairsGameRouteArgs(
+            key: key,
+            level: level,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'FindPairsGameRoute';
+
+  static const PageInfo<FindPairsGameRouteArgs> page =
+      PageInfo<FindPairsGameRouteArgs>(name);
+}
+
+class FindPairsGameRouteArgs {
+  const FindPairsGameRouteArgs({
+    this.key,
+    required this.level,
+  });
+
+  final Key? key;
+
+  final LevelModel level;
+
+  @override
+  String toString() {
+    return 'FindPairsGameRouteArgs{key: $key, level: $level}';
+  }
+}
+
+/// generated route for
+/// [FindPairsLevelsScreen]
+class FindPairsLevelsRoute extends PageRouteInfo<void> {
+  const FindPairsLevelsRoute({List<PageRouteInfo>? children})
+      : super(
+          FindPairsLevelsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FindPairsLevelsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

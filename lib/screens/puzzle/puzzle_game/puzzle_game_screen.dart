@@ -55,7 +55,9 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
           ),
         ),
       );
-      context.router.push(PuzzleListRoute());
+      Future.delayed(const Duration(seconds: 2), () {
+        context.router.push(PuzzleListRoute());
+      });
     }
   }
 
@@ -129,15 +131,6 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
                           endTime: endTime(),
                           onEnd: () {
                             if (isDone == false) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: AppColors.purple,
-                                  content: Text(
-                                    'Failed!',
-                                    style: TextStyle(color: AppColors.white),
-                                  ),
-                                ),
-                              );
                               context.router.push(PuzzleListRoute());
                             }
                           },
@@ -147,6 +140,7 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
                   ],
                 ),
               ),
+              Spacer(flex: 1),
               Column(
                 children: [
                   ClipRRect(
@@ -184,28 +178,29 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
                         itemCount: currentSequence.length,
                         itemBuilder: (context, index) {
                           PuzzlePieceModel piece = currentSequence[index];
-                          return GestureDetector(
-                            onTap: () {
-                              if (selectedPieceIndex == -1) {
-                                setState(() {
-                                  selectedPieceIndex = index;
-                                });
-                              } else {
-                                if (selectedPieceIndex != index) {
-                                  swapPieces(selectedPieceIndex, index);
-                                }
-                                setState(() {
-                                  selectedPieceIndex = -1;
-                                });
-                              }
+                          return DragTarget<int>(
+                            onAccept: (int draggedIndex) {
+                              swapPieces(draggedIndex, index);
                             },
-                            child: Container(
-                              margin: EdgeInsets.all(2),
-                              color: Colors.white,
-                              child: Center(
-                                child: Image.asset(piece.pieces),
-                              ),
-                            ),
+                            builder: (context, candidateData, rejectedData) {
+                              return Draggable<int>(
+                                data: index,
+                                child: Container(
+                                  margin: EdgeInsets.all(2),
+                                  color: Colors.white,
+                                  child: Center(
+                                    child: Image.asset(piece.pieces),
+                                  ),
+                                ),
+                                feedback: Container(
+                                  margin: EdgeInsets.all(2),
+                                  color: Colors.white,
+                                  child: Center(
+                                    child: Image.asset(piece.pieces, width: 100, height: 100,),
+                                  ),
+                                ),
+                              );
+                            },
                           );
                         },
                       ),
@@ -213,7 +208,7 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              Spacer(flex: 2),
             ],
           ),
         ),

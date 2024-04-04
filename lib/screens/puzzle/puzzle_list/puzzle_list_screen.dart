@@ -30,7 +30,6 @@ class _PuzzleListScreenState extends State<PuzzleListScreen> {
         width: MediaQuery.of(context).size.width,
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -47,6 +46,7 @@ class _PuzzleListScreenState extends State<PuzzleListScreen> {
                   ],
                 ),
               ),
+              Spacer(flex: 1),
               Column(
                 children: [
                   Image.asset('assets/images/elements/logo.png'),
@@ -93,7 +93,7 @@ class _PuzzleListScreenState extends State<PuzzleListScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              Spacer(flex: 3),
             ],
           ),
         ),

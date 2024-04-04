@@ -1,8 +1,14 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sweet_bonanza_app/services/audio_player.dart';
 import 'package:sweet_bonanza_app/widgets/custom_button.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+
+bool isPlaying = false;
 
 @RoutePage()
 class SettingsScreen extends StatefulWidget {
@@ -13,6 +19,9 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  AudioPlayer audioPlayer = AudioPlayer();
+  final browser = InAppBrowser();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,11 +32,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -38,11 +52,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onTap: () {
                           context.router.pop();
                         },
-                        child: SvgPicture.asset('assets/images/elements/home-button.svg')),
+                        child: SvgPicture.asset(
+                            'assets/images/elements/home-button.svg')),
                     SizedBox(width: 5),
                   ],
                 ),
               ),
+              Spacer(flex: 1),
               Column(
                 children: [
                   Image.asset('assets/images/elements/logo.png'),
@@ -50,24 +66,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     children: [
                       CustomButton(
                         imageButton: 'assets/images/elements/privacy.png',
-                        onTap: () {},
+                        onTap: () {
+                          browser.openUrlRequest(
+                              urlRequest: URLRequest(url: WebUri("https://docs.google.com/document/d/1KoQaOHv6_j3XQNZMJlWBa3AkbqN-A80r4PjCIf9D9vs/edit?usp=sharing")));
+                        },
                       ),
                       SizedBox(height: 20),
                       CustomButton(
                         imageButton: 'assets/images/elements/terms.png',
-                        onTap: () {},
+                        onTap: () {
+                          browser.openUrlRequest(
+                              urlRequest: URLRequest(url: WebUri("https://docs.google.com/document/d/1nDwvrlH3xggHi3pjBJKh2Y1gWGnoRY_TKso77BOU9Bk/edit?usp=sharing")));
+                        },
                       ),
                       SizedBox(height: 20),
                       CustomButton(
                         imageButton: 'assets/images/elements/music.png',
-                        onTap: () {},
+                        onTap: () {
+                          if (isPlaying) {
+                            isPlaying = false;
+                            AudioPlayerService.audioPlayer.stop();
+                          } else {
+                          isPlaying = true;
+                          AudioPlayerService.audioPlayer.open(Playlist(audios: [
+                            Audio('assets/audios/adventure-time.mp3')
+                          ]), loopMode: LoopMode.playlist);
+                          }
+                        },
                       ),
                       SizedBox(height: 20),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 100),
+              Spacer(flex: 2),
             ],
           ),
         ),
