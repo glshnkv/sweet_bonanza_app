@@ -23,6 +23,9 @@ dependencies:
   assets_audio_player: ^3.1.1
   flutter_inappwebview: ^6.0.0
   animated_flip_widget: ^0.0.2
+  firebase_messaging: ^14.2.2
+  firebase_core: ^2.21.0
+  firebase_remote_config: ^4.3.3
 
   cupertino_icons: ^1.0.2
 
