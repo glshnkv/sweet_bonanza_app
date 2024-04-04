@@ -1,0 +1,77 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sweet_bonanza_app/widgets/custom_button.dart';
+
+@RoutePage()
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/elements/bg.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          context.router.pop();
+                        },
+                        child: SvgPicture.asset('assets/images/elements/home-button.svg')),
+                    SizedBox(width: 5),
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  Image.asset('assets/images/elements/logo.png'),
+                  Column(
+                    children: [
+                      CustomButton(
+                        imageButton: 'assets/images/elements/privacy.png',
+                        onTap: () {},
+                      ),
+                      SizedBox(height: 20),
+                      CustomButton(
+                        imageButton: 'assets/images/elements/terms.png',
+                        onTap: () {},
+                      ),
+                      SizedBox(height: 20),
+                      CustomButton(
+                        imageButton: 'assets/images/elements/music.png',
+                        onTap: () {},
+                      ),
+                      SizedBox(height: 20),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 100),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
